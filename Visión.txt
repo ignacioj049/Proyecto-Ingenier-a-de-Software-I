@@ -1,0 +1,4 @@
+-Visión de problema:
+No existe un proceso digital para gestionar las recolección de materiales reciclables, generando confusión y problemas de logística.
+-Visión del producto:
+¿Qué es nuestro sistema?: Es un sistema de gestión para la recolección de materiales reciclables, el cual estará disponible tanto para los usuarios que reciclan en las diversas comunas, como también las cooperativas de recicladores.
