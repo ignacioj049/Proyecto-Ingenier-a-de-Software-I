@@ -1,15 +1,16 @@
 Requisitos de Software:
 1. Funcionales:
-El sistema debe permitir que cada usuario, ingrese sus solicitud de recolección de sus materiales reciclables
-El sistema permite generar una ruta eficiente, teniendo en consideración la ubicación geográfica de las solicitudes
-El sistema permite generar un reporte del estado de la solicitud, el cual puede ser modificado por los recicladores
-El sistema permite la emisión de comprobantes de los retiros para los hogares
+La app debe permitir que cada usuario, ingrese sus solicitud de recolección de sus materiales reciclables
+La app permite generar una ruta eficiente, teniendo en consideración la ubicación geográfica de las solicitudes
+La app permite generar un reporte del estado de la solicitud, el cual puede ser modificado por los recicladores
+La app permite la emisión de comprobantes de los retiros para los hogares
+La app permite que los coordinadores de ruta puedan visualizar las solicitudes.
 
 2. No funcionales:
--El sistema valida que la solicitud esté dentro del área de recolección permitido
+-La app valida que la solicitud esté dentro del área de recolección permitido
 -El usuario debe seleccionar el/los tipo(s) de material(es) a desechar
--El sistema posee una interfaz y accesibilidad diferente para cada actor correspondiente
--El sistema puede usarse tanto en dispositivos móviles como computadoras
--El sistema posee una función de verificación, tanto de los usuarios (sus propias cuentas), como también de sus datos respectivos. 
--El sistema tiene sus horarios fijos para que los usuarios realicen sus solicitudes
--El sistema poseerá funciones de mayor accesibilidad para gente que posea algún tipo de discapacidad
+-La app posee una interfaz y accesibilidad diferente para cada actor correspondiente
+-La app puede usarse tanto en dispositivos móviles como computadoras
+-La app posee una función de verificación, tanto de los usuarios (sus propias cuentas), como también de sus datos respectivos. 
+-La app tiene sus horarios fijos para que los usuarios realicen sus solicitudes
+-La app poseerá funciones de mayor accesibilidad para gente que posea algún tipo de discapacidad

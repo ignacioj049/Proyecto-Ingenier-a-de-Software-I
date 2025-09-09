@@ -1,4 +1,6 @@
 -Visión de problema:
 No existe un proceso digital para gestionar las recolección de materiales reciclables, generando confusión y problemas de logística.
 -Visión del producto:
-¿Qué es nuestro sistema?: Es un sistema de gestión para la recolección de materiales reciclables, el cual estará disponible tanto para los usuarios que reciclan en las diversas comunas, como también las cooperativas de recicladores.
+¿Qué es?: Es una aplicación de gestión para la recolección de materiales reciclables, el cual estará disponible tanto para los usuarios que reciclan en las diversas comunas, como también las cooperativas de recicladores.
+¿Qué hace?: Permite digitalizar el proceso de la gestión de la recolección de los materiales reciclables, donde los usuarios podrán generar su solicitud, la que también podrán visualizar, así como también la podrán ver los coordinadores de ruta, para luego generar una ruta eficiente, también los recicladores podrán generar reportes del estado, visualizar la ruta que se les designó y emitir un comprobante para el cliente.
+¿Quién lo ocupa?: Los clientes que deseen reciclar su basura, los recicladores que son los que recorren las rutas y recogen la basura y por último los coordinadores de ruta que son aquellos que gestionan la ruta que tomarán los recicladores de acuerdo a la ubicación de las solicitudes.

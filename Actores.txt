@@ -1,5 +1,4 @@
 Actores:
 - Clientes
 - Recicladores
-- Empresas recicladoras
 - Coordinadores de ruta
