@@ -1,0 +1,69 @@
+-Caso de Uso UC1: Reportar resultado de retiro
+Actor Principal: Reciclador
+Actores involucrados e intereses:
+1) Cliente: Le interesa recibir la confirmación del retiro y un comprobante
+2) Coordinador: Le interesa monitorear el cumplimiento de la ruta y las métricas del servicio
+3) Sistema de geolocalización: Le interesa registrar la posición y los tiempos para una mayor trazabilidad
+Precondiciones: 
+-El reciclador tiene una ruta asignada con una solicitud activa en estado "pendiente" o en "curso"
+-El reciclador está autenticado en la aplicación
+-La solicitud fue validada geográficamente y forma parte de una ruta
+Postcondiciones (garantías de éxito): 
+-La solicitud cambia de estado a "Retirada" (o "no realizada" si esta no es posible realizarla)
+-Se ejecuta UC2: Emitir el comprobante y el comprobante queda disponible para el cliente
+-Se le notifica al cliente y al coordinador de ruta
+Escenario principal de éxito (Flujo básico):
+1. El reciclador abre la solicitud en su lista de paradas de la ruta designada
+2. La aplicación muestra los datos del cliente, dirección y materiales esperados
+3. El reciclador confirma la llegada (se requiere su ubicación)
+4. El reciclador reporta el resultado: los materiales que efectivamente fueron retirados (tipo, cantidad, observaciones y foto de forma opcional)
+5. La aplicación valida los campos obligatorios y guarda el reporte
+6. <>UC2: Emitir comprobante 
+7. La app cambia el estado de la solicitud a "retirada", registra la salida y se sincroniza con el servidor
+8. El sistema notifica al cliente y el coordinador de ruta y actualiza la ruta (siguiente parada)
+Extensiones (Flujos alternativos):
+1' (Cliente ausente o basura no disponible): 
+a) En el paso 4, el reciclador marca como "No realizado" y selecciona el motivo (ausencia, material insuficiente, dirección incorrecta, etc)
+b) La app no ejecuta UC2: Guarda evidencia (alguna nota u observación) y cambia el estado a "No realizado"
+c) Se notifica al cliente y al coordinador
+2' (Material distinto al solicitado):
+a) En el paso 4, el reciclador ajusta el tipo y cantidad del material
+b) La aplicación recalcula el total y continúa al UC2
+3' (Sin conectividad):
+a) En los pasos 5 a 7, la app guarda la información de forma offline
+b) Al recuperar la señal se sincroniza y se envía las notificaciones
+4' (Problemas de geolocalización):
+a) Si no se puede obtener la ubicación, la app permite continuar con una marca de forma manual de los retiros y con una advertencia, luego el coordinador podrá verificar 
+5' (Cancelación por el cliente en último minuto):
+a) Antes del paso 3, la solicitud aparece cancelada y el reciclador no puede reportar y vuelve a la lista de la ruta
+
+-Caso de Uso UC2: Emitir comprobante
+Actor Principal: Aplicación (iniciado por el reciclador)
+Actores involucrados e intereses:
+1) Cliente: Le interesa recibir un comprobante claro de su retiro
+2) Coordinador: Le interesa contar con respaldo formal para el control y la trazabilidad del servicio
+Precondiciones: 
+-Existe un reporte de retiro válido (UC1 paso 5), con materiales y las cantidades confirmadas
+-El reciclador está identificado y la solicitud está asociada a un cliente
+Postcondiciones (garantías de éxito):
+-Se genera un comprobante único, con fecha, hora, dirección, materiales y cantidades.
+-El comprobante queda almacenado en el sistema y disponible para el cliente 
+-Se registra el medio de entrega (digital y/o impresión)
+Escenario principal de éxito (Flujo básico):
+1)La app toma los datos del reporte (cliente, solicitud, materiales, cantidades, fotos si aplica).
+2)Calcula totales (p. ej., peso total, ítems) y arma el comprobante con identificadores y metadatos de trazabilidad.
+3)Genera el documento (p. ej., PDF/vale digital con QR).
+4)Muestra una vista previa al reciclador para confirmación.
+5)Al confirmar, guarda el comprobante y lo envía al cliente (notificación y/o correo) y lo asocia a la solicitud.
+6)Devuelve control a UC1 para cerrar el reporte.
+Extensiones (flujos alternativos):
+1'(Corrección de datos antes de emitir):
+a) En el paso 4, el reciclador detecta un error y vuelve al formulario de UC1 para editar materiales y/o cantidades.
+b) Reintenta UC2.
+2' (Fallo al generar documento):
+a) En el paso 3, si hay un error de generación, la app registra el incidente y permite reintentar.
+b) Si persiste, guarda un comprobante simple y marca para reproceso.
+3' (Fallo al enviar al cliente):
+a) En el paso 5, si el envío falla (email inválido, sin conexión), se guarda en “pendiente de envío” y se reintenta automáticamente al recuperar conectividad.
+4' (Emisión física opcional):
+a) Si la cooperativa exige copia física, la app habilita impresión o entrega de QR para que el cliente lo descargue luego.
