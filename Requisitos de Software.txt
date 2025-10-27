@@ -1,10 +1,10 @@
 Requisitos de Software:
 1. Funcionales:
 La app debe permitir que cada usuario, ingrese sus solicitud de recolección de sus materiales reciclables
-La app permite generar una ruta eficiente, teniendo en consideración la ubicación geográfica de las solicitudes
+La app permite registrar la ubicación geográfica de las solicitudes
 La app permite generar un reporte del estado de la solicitud, el cual puede ser modificado por los recicladores
-La app permite la emisión de comprobantes de los retiros para los hogares
-La app permite que los coordinadores de ruta puedan visualizar las solicitudes.
+La app permite emitir comprobantes de los retiros para los hogares
+La app permite visualizar las solicitudes a los coordinadores de ruta
 
 2. No funcionales:
 -La app valida que la solicitud esté dentro del área de recolección permitido

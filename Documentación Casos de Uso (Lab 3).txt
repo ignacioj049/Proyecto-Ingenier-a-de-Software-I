@@ -1,69 +1,150 @@
 -Caso de Uso UC1: Reportar resultado de retiro
 Actor Principal: Reciclador
 Actores involucrados e intereses:
-1) Cliente: Le interesa recibir la confirmación del retiro y un comprobante
-2) Coordinador: Le interesa monitorear el cumplimiento de la ruta y las métricas del servicio
-3) Sistema de geolocalización: Le interesa registrar la posición y los tiempos para una mayor trazabilidad
-Precondiciones: 
--El reciclador tiene una ruta asignada con una solicitud activa en estado "pendiente" o en "curso"
--El reciclador está autenticado en la aplicación
--La solicitud fue validada geográficamente y forma parte de una ruta
-Postcondiciones (garantías de éxito): 
--La solicitud cambia de estado a "Retirada" (o "no realizada" si esta no es posible realizarla)
--Se ejecuta UC2: Emitir el comprobante y el comprobante queda disponible para el cliente
--Se le notifica al cliente y al coordinador de ruta
+Cliente: Desea recibir la confirmación del retiro y el comprobante correspondiente.
+Coordinador de ruta: Quiere monitorear el cumplimiento de las rutas y las métricas del servicio.
+Sistema de Geolocalización: Valida la ubicación y registra la posición para garantizar trazabilidad.
+
+Relación con los casos de uso:
+Se usa <<extend>> y el UC2: "Emitir comprobante" se ejecuta como extensión solo cuando el retiro se realiza exitosamente.
+(Es decir, no siempre se emite comprobante, solo si el reciclador marca la solicitud como “Retirada”).
+
+Precondiciones:
+-El reciclador está autenticado en la aplicación.
+-Tiene asignada una ruta activa con una solicitud en estado “Pendiente” o “En curso”.
+-La solicitud ha sido validada geográficamente y pertenece a una ruta activa.
+
+Postcondiciones (garantías de éxito):
+-La solicitud cambia su estado a “Retirada” o “No realizada”.
+-Si el retiro fue exitoso, se extiende UC2: Emitir comprobante.
+-El cliente y el coordinador reciben una notificación del resultado.
+-La información se registra en la base de datos con hora, ubicación y observaciones.
+
 Escenario principal de éxito (Flujo básico):
-1. El reciclador abre la solicitud en su lista de paradas de la ruta designada
-2. La aplicación muestra los datos del cliente, dirección y materiales esperados
-3. El reciclador confirma la llegada (se requiere su ubicación)
-4. El reciclador reporta el resultado: los materiales que efectivamente fueron retirados (tipo, cantidad, observaciones y foto de forma opcional)
-5. La aplicación valida los campos obligatorios y guarda el reporte
-6. <>UC2: Emitir comprobante 
-7. La app cambia el estado de la solicitud a "retirada", registra la salida y se sincroniza con el servidor
-8. El sistema notifica al cliente y el coordinador de ruta y actualiza la ruta (siguiente parada)
+
+1) El reciclador abre la solicitud desde su lista de paradas de la ruta asignada.
+2) La aplicación muestra los datos del cliente, dirección, tipo de materiales y observaciones.
+3) El reciclador confirma la llegada.
+4) El reciclador reporta el resultado del retiro, ingresando los materiales efectivamente recolectados, observaciones y evidencias (como fotos).
+5) El sistema valida los campos y guarda el reporte.
+6) El flujo se extiende a UC2: Emitir comprobante para generar y entregar el comprobante al cliente.
+7) El sistema actualiza el estado de la solicitud a “Retirada” y sincroniza los datos con el servidor.
+8) Se notifica al cliente y al coordinador de ruta, y se actualiza la información de la ruta.
+
 Extensiones (Flujos alternativos):
-1' (Cliente ausente o basura no disponible): 
-a) En el paso 4, el reciclador marca como "No realizado" y selecciona el motivo (ausencia, material insuficiente, dirección incorrecta, etc)
-b) La app no ejecuta UC2: Guarda evidencia (alguna nota u observación) y cambia el estado a "No realizado"
-c) Se notifica al cliente y al coordinador
-2' (Material distinto al solicitado):
-a) En el paso 4, el reciclador ajusta el tipo y cantidad del material
-b) La aplicación recalcula el total y continúa al UC2
-3' (Sin conectividad):
-a) En los pasos 5 a 7, la app guarda la información de forma offline
-b) Al recuperar la señal se sincroniza y se envía las notificaciones
-4' (Problemas de geolocalización):
-a) Si no se puede obtener la ubicación, la app permite continuar con una marca de forma manual de los retiros y con una advertencia, luego el coordinador podrá verificar 
-5' (Cancelación por el cliente en último minuto):
-a) Antes del paso 3, la solicitud aparece cancelada y el reciclador no puede reportar y vuelve a la lista de la ruta
+
+1' Cliente ausente o material no disponible:
+a) En el paso 4, el reciclador marca “No realizado” e indica el motivo.
+b) El sistema no ejecuta UC2.
+c) Guarda la evidencia y cambia el estado a “No realizada”.
+d) Se notifica al cliente y al coordinador.
+
+2' Material distinto al solicitado:
+a) En el paso 4, el reciclador corrige el tipo o cantidad de material.
+b) El sistema recalcula los datos y continúa normalmente al paso 5.
+
+3' Sin conectividad:
+a) En los pasos 5 a 7, la app almacena los datos localmente.
+b) Al recuperar señal, sincroniza los reportes y notificaciones pendientes.
+
+4' Cancelación por parte del cliente:
+a) Si antes del paso 3 la solicitud fue cancelada, no se permite el reporte.
+b) El reciclador vuelve a la lista de paradas de la ruta.
+
+
+
 
 -Caso de Uso UC2: Emitir comprobante
-Actor Principal: Aplicación (iniciado por el reciclador)
+Actor Principal: Aplicación (iniciada por el reciclador al completar UC1).
 Actores involucrados e intereses:
-1) Cliente: Le interesa recibir un comprobante claro de su retiro
-2) Coordinador: Le interesa contar con respaldo formal para el control y la trazabilidad del servicio
-Precondiciones: 
--Existe un reporte de retiro válido (UC1 paso 5), con materiales y las cantidades confirmadas
--El reciclador está identificado y la solicitud está asociada a un cliente
+Cliente: Recibe el comprobante digital del retiro realizado.
+Coordinador de ruta: Utiliza el comprobante como evidencia formal del servicio prestado.
+
+Relaciones con otros casos de uso:
+<<extended by>> UC1: Reportar resultado de retiro
+(Es decir, este caso se ejecuta solo como extensión de UC1, cuando el retiro fue exitoso).
+
+Precondiciones:
+-Existe un reporte de retiro válido con materiales confirmados.
+-La solicitud asociada se encuentra en estado “Retirada”.
+-El reciclador y el cliente están correctamente identificados en el sistema.
+
 Postcondiciones (garantías de éxito):
--Se genera un comprobante único, con fecha, hora, dirección, materiales y cantidades.
--El comprobante queda almacenado en el sistema y disponible para el cliente 
--Se registra el medio de entrega (digital y/o impresión)
+-Se genera un comprobante único, con folio, fecha, dirección, materiales y cantidades.
+-El comprobante se guarda en el sistema y queda disponible para el cliente.
+-Se registra el medio de entrega (digital, email o físico).
+-Se devuelve el control al UC1 para completar el flujo principal.
+
 Escenario principal de éxito (Flujo básico):
-1)La app toma los datos del reporte (cliente, solicitud, materiales, cantidades, fotos si aplica).
-2)Calcula totales (p. ej., peso total, ítems) y arma el comprobante con identificadores y metadatos de trazabilidad.
-3)Genera el documento (p. ej., PDF/vale digital con QR).
-4)Muestra una vista previa al reciclador para confirmación.
-5)Al confirmar, guarda el comprobante y lo envía al cliente (notificación y/o correo) y lo asocia a la solicitud.
-6)Devuelve control a UC1 para cerrar el reporte.
-Extensiones (flujos alternativos):
-1'(Corrección de datos antes de emitir):
-a) En el paso 4, el reciclador detecta un error y vuelve al formulario de UC1 para editar materiales y/o cantidades.
-b) Reintenta UC2.
-2' (Fallo al generar documento):
-a) En el paso 3, si hay un error de generación, la app registra el incidente y permite reintentar.
-b) Si persiste, guarda un comprobante simple y marca para reproceso.
-3' (Fallo al enviar al cliente):
-a) En el paso 5, si el envío falla (email inválido, sin conexión), se guarda en “pendiente de envío” y se reintenta automáticamente al recuperar conectividad.
-4' (Emisión física opcional):
-a) Si la cooperativa exige copia física, la app habilita impresión o entrega de QR para que el cliente lo descargue luego.
+1) La aplicación toma los datos del reporte de retiro (cliente, materiales, cantidades, observaciones).
+2)Calcula los totales (peso, número de ítems, etc.) y prepara el comprobante con los metadatos de trazabilidad.
+3) Genera el documento digital.
+4) Muestra una vista previa al reciclador para confirmación.
+5) Una vez confirmado, guarda el comprobante, lo asocia a la solicitud y lo envía al cliente por correo o app.
+5) Regresa al UC1, cerrando el proceso del retiro.
+
+Extensiones (Flujos alternativos):
+1' Corrección de datos antes de emitir:
+a) En el paso 4, si el reciclador detecta un error, puede volver al formulario del UC1.
+b) Luego, reintenta la emisión del comprobante.
+
+2' Fallo al generar documento:
+a) En el paso 3, si ocurre un error, el sistema registra el incidente.
+b) Permite reintentar o emitir un comprobante básico temporal.
+
+3' Fallo al enviar al cliente:
+a) En el paso 5, si el envío falla por falta de conexión o correo inválido, se guarda en “pendiente de envío”.
+b) Se reintenta automáticamente cuando haya conectividad.
+
+4' Emisión física opcional:
+a) Si la cooperativa lo requiere, el sistema habilita impresión o entrega de un QR descargable.
+
+
+
+
+-Caso de Uso UC3: Ingresar Solicitud
+Actor Principal: Cliente
+Actores involucrados e intereses:
+Sistema de Geolocalización: Valida la ubicación del cliente para asegurar que pertenece a una zona atendida.
+Coordinador de ruta: Recibe las nuevas solicitudes para agruparlas y planificar las rutas de recolección.
+Reciclador: Se beneficia de solicitudes bien georreferenciadas para optimizar la ruta de retiro.
+
+Relaciones con otros casos de uso:
+<<include>> UC: Validar ubicación geográfica, el cual se ejecuta automáticamente cuando el cliente ingresa su dirección o ubicación para confirmar que pertenece a una zona cubierta por el servicio.
+<<extended by>> UC: Ver solicitud, donde “Ver solicitud” puede ejecutarse posteriormente como extensión de este caso, permitiendo al cliente revisar el estado o historial de solicitudes ingresadas.
+
+Precondiciones:
+-El cliente está registrado y autenticado en la aplicación.
+-El servicio de geolocalización está disponible y operativo.
+-El cliente se encuentra dentro de una zona geográfica cubierta por la cooperativa (según validación).
+
+Postcondiciones (garantías de éxito):
+-Se crea una nueva Solicitud de retiro en estado “Pendiente”.
+-La solicitud queda asociada al cliente y a una ubicación válida.
+-El sistema notifica al coordinador para su agrupación en una futura ruta.
+
+Escenario principal de éxito (Flujo básico):
+1) El cliente accede a la aplicación y selecciona la opción “Ingresar solicitud”.
+2) Ingresa los datos requeridos: tipo de material, cantidad estimada, dirección y observaciones opcionales.
+3) El sistema ejecuta <<include>> UC: Validar ubicación geográfica, verificando que la dirección esté dentro de una zona atendida.
+4) Si la ubicación es válida, el sistema guarda la solicitud y la asocia al perfil del cliente.
+5) La aplicación muestra un mensaje de confirmación y el número de solicitud generado.
+6) El coordinador recibe la nueva solicitud para su posterior agrupación y planificación de ruta.
+7) El cliente puede posteriormente <<extender>> UC: Ver solicitud para consultar el estado del retiro.
+
+Extensiones (Flujos alternativos):
+1' Ubicación fuera de zona de cobertura:
+a) En el paso 3, el caso de uso Validar ubicación geográfica indica que la dirección no pertenece a ninguna zona activa.
+b) La aplicación muestra un mensaje de error y no permite crear la solicitud.
+c) El cliente puede editar la dirección o cancelar la operación.
+
+2' Falta de conectividad o error del servicio de geolocalización:
+a) En el paso 3, si no se puede validar la ubicación, la aplicación guarda la solicitud en estado “Pendiente de validación”.
+b) El sistema intentará validar más tarde o pedirá al coordinador confirmarla manualmente.
+
+3' Datos incompletos:
+a) En el paso 2, si el cliente no completa los campos obligatorios, la aplicación muestra mensajes de error y no permite continuar.
+
+4' Solicitud duplicada:
+a) Si el cliente ya tiene una solicitud activa en la misma dirección, el sistema notifica el duplicado.
+b) El usuario puede optar por cancelar o modificar la existente.
