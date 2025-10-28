@@ -1,9 +1,6 @@
 -Caso de Uso UC1: Reportar resultado de retiro
 Actor Principal: Reciclador
-Actores involucrados e intereses:
-Cliente: Desea recibir la confirmación del retiro y el comprobante correspondiente.
-Coordinador de ruta: Quiere monitorear el cumplimiento de las rutas y las métricas del servicio.
-Sistema de Geolocalización: Valida la ubicación y registra la posición para garantizar trazabilidad.
+Interés del actor principal: Registrar en el sistema el resultado, ya sea existoso o no del retiro.
 
 Relación con los casos de uso:
 Se usa <<extend>> y el UC2: "Emitir comprobante" se ejecuta como extensión solo cuando el retiro se realiza exitosamente.
@@ -55,13 +52,11 @@ b) El reciclador vuelve a la lista de paradas de la ruta.
 
 
 -Caso de Uso UC2: Emitir comprobante
-Actor Principal: Aplicación (iniciada por el reciclador al completar UC1).
-Actores involucrados e intereses:
-Cliente: Recibe el comprobante digital del retiro realizado.
-Coordinador de ruta: Utiliza el comprobante como evidencia formal del servicio prestado.
+Actor Principal: Reciclador (iniciada por él, al completar UC1).
+Intereses del actor principal: Emitir un comprobante cuando el retiro es exitoso.
 
 Relaciones con otros casos de uso:
-<<extended by>> UC1: Reportar resultado de retiro
+<<extend>> UC1: Reportar resultado de retiro
 (Es decir, este caso se ejecuta solo como extensión de UC1, cuando el retiro fue exitoso).
 
 Precondiciones:
@@ -78,9 +73,8 @@ Postcondiciones (garantías de éxito):
 Escenario principal de éxito (Flujo básico):
 1) La aplicación toma los datos del reporte de retiro (cliente, materiales, cantidades, observaciones).
 2)Calcula los totales (peso, número de ítems, etc.) y prepara el comprobante con los metadatos de trazabilidad.
-3) Genera el documento digital.
-4) Muestra una vista previa al reciclador para confirmación.
-5) Una vez confirmado, guarda el comprobante, lo asocia a la solicitud y lo envía al cliente por correo o app.
+3) Se muestra una vista previa al reciclador para confirmación.
+4) Una vez confirmado, guarda el comprobante, lo asocia a la solicitud y lo envía al cliente por correo o app.
 5) Regresa al UC1, cerrando el proceso del retiro.
 
 Extensiones (Flujos alternativos):
@@ -88,7 +82,7 @@ Extensiones (Flujos alternativos):
 a) En el paso 4, si el reciclador detecta un error, puede volver al formulario del UC1.
 b) Luego, reintenta la emisión del comprobante.
 
-2' Fallo al generar documento:
+2' Fallo al visualizar el comprobante:
 a) En el paso 3, si ocurre un error, el sistema registra el incidente.
 b) Permite reintentar o emitir un comprobante básico temporal.
 
@@ -106,12 +100,10 @@ a) Si la cooperativa lo requiere, el sistema habilita impresión o entrega de un
 Actor Principal: Cliente
 Actores involucrados e intereses:
 Sistema de Geolocalización: Valida la ubicación del cliente para asegurar que pertenece a una zona atendida.
-Coordinador de ruta: Recibe las nuevas solicitudes para agruparlas y planificar las rutas de recolección.
-Reciclador: Se beneficia de solicitudes bien georreferenciadas para optimizar la ruta de retiro.
 
 Relaciones con otros casos de uso:
 <<include>> UC: Validar ubicación geográfica, el cual se ejecuta automáticamente cuando el cliente ingresa su dirección o ubicación para confirmar que pertenece a una zona cubierta por el servicio.
-<<extended by>> UC: Ver solicitud, donde “Ver solicitud” puede ejecutarse posteriormente como extensión de este caso, permitiendo al cliente revisar el estado o historial de solicitudes ingresadas.
+<<extend>> UC: Ver solicitud, donde “Ver solicitud” puede ejecutarse posteriormente como extensión de este caso, permitiendo al cliente revisar el estado o historial de solicitudes ingresadas.
 
 Precondiciones:
 -El cliente está registrado y autenticado en la aplicación.
@@ -130,10 +122,10 @@ Escenario principal de éxito (Flujo básico):
 4) Si la ubicación es válida, el sistema guarda la solicitud y la asocia al perfil del cliente.
 5) La aplicación muestra un mensaje de confirmación y el número de solicitud generado.
 6) El coordinador recibe la nueva solicitud para su posterior agrupación y planificación de ruta.
-7) El cliente puede posteriormente <<extender>> UC: Ver solicitud para consultar el estado del retiro.
+7) El cliente puede posteriormente ver su solicitud para consultar el estado del retiro.
 
 Extensiones (Flujos alternativos):
-1' Ubicación fuera de zona de cobertura:
+1' Ubicación fuera de la zona de cobertura:
 a) En el paso 3, el caso de uso Validar ubicación geográfica indica que la dirección no pertenece a ninguna zona activa.
 b) La aplicación muestra un mensaje de error y no permite crear la solicitud.
 c) El cliente puede editar la dirección o cancelar la operación.

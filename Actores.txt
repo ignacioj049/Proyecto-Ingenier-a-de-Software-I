@@ -2,3 +2,4 @@ Actores:
 - Clientes
 - Recicladores
 - Coordinadores de ruta
+- Sistema de Geolocalización

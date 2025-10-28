@@ -1,9 +1,10 @@
 Cliente:
 - Ingresar solicitud de recolección
 - Ver solicitud 
-Coordinadores de ruta:
+Coordinador de ruta:
 - Generar una ruta eficiente
-- Ver solicitud 
+- Visualizar Ruta
+- Agrupar solicitudes por zona
 Recicladores:
 - Generar reporte de estado de solicitud
 - Emitir un comprobante de retiro
