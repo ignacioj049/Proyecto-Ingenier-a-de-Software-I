@@ -1,0 +1,108 @@
+Contrato 1: AbrirSolicitud(clienteID, datosSolicitud)
+Responsabilidades:
+Registrar una nueva solicitud de recolección en el sistema con los datos del cliente y la información del retiro (tipo de material, cantidad, dirección, fecha disponible).
+Referencias:
+Caso de uso: *Ingresar solicitud de recolección*.
+Notas:
+La solicitud queda en estado “Pendiente” hasta ser validada y asignada por el coordinador.
+Excepciones:
+Faltan datos obligatorios (dirección, tipo de material).
+El cliente no está registrado o su cuenta está inactiva.
+Salida:
+Confirmación de registro de la solicitud con un identificador único (ID de solicitud).
+Precondiciones:
+El cliente debe estar autenticado.
+El sistema debe tener conexión con la base de datos.
+Postcondiciones:
+Se crea una nueva instancia del objeto solicitud.
+Se asocia la solicitud al cliente correspondiente.
+El estado inicial de la solicitud se establece como pendiente
+
+
+
+Contrato 2: VisualizaSolicitud(clienteID)
+Responsabilidades:
+Mostrar al cliente la lista de solicitudes activas y su información detallada (estado, fecha programada, reciclador asignado, comprobante si existe).
+Referencias:
+Caso de uso: Ver solicitud.
+Notas:
+Permite al cliente revisar tanto solicitudes en curso como históricas.
+Excepciones:
+El cliente no tiene solicitudes registradas.
+Error de conexión al servidor o base de datos.
+Salida:
+Listado de solicitudes y sus estados actuales.
+Precondiciones:
+Cliente autenticado.
+Debe existir al menos una solicitud asociada al cliente.
+Postcondiciones:
+No se crean ni modifican objetos; solo se accede a la información.
+
+
+
+
+Contrato 3: GenerarRutaEficiente()
+Responsabilidades:
+Agrupar las solicitudes pendientes según ubicación geográfica y generar una ruta óptima para los recicladores.
+Referencias:
+Caso de uso: Generar una ruta eficiente.
+Notas:
+Utiliza el sistema de geolocalización y algoritmos de optimización de rutas.
+Excepciones:
+No hay solicitudes pendientes.
+Error al obtener coordenadas o al comunicarse con el servicio de mapas.
+Salida:
+Una ruta optimizada con el orden de recolección y asignación de recicladores.
+Precondiciones:
+Deben existir solicitudes pendientes sin ruta asignada.
+Conexión activa con el sistema de geolocalización.
+Postcondiciones:
+Se crean objetos "Ruta".
+Las solicitudes incluidas cambian su estado a asignada.
+Se vinculan las solicitudes y recicladores a la nueva ruta.
+
+
+
+
+Contrato 4: ReportaResultado(solicitudID, estado, observaciones)
+Responsabilidades:
+Registrar el resultado de una recolección (exitosa, parcial o fallida) por parte del reciclador.
+Referencias:
+Caso de uso: Generar reporte de estado de solicitud.
+Notas:
+El reporte incluye observaciones del reciclador y puede activar la generación del comprobante si la recolección fue exitosa.
+Excepciones:
+La solicitud no existe o ya fue cerrada.
+Error al guardar el reporte.
+Salida:
+Confirmación de registro del reporte y cambio de estado de la solicitud.
+Precondiciones:
+La solicitud debe estar en estado asignada.
+El reciclador debe estar autenticado.
+Postcondiciones:
+Se crea un objeto "Reporte".
+El estado de la solicitud cambia a completada o fallida.
+Se inicia la operación "EmiteComprobante()" si corresponde (relación extend).
+
+
+
+Contrato 5: EmiteComprobante(solicitudID)
+Responsabilidades:
+Generar y enviar un comprobante digital al cliente con el detalle del retiro realizado.
+Referencias:
+Caso de uso: Emitir comprobante de retiro (extend de generar reporte de estado de solicitud).
+Notas:
+Incluye información del reciclador, cliente, materiales retirados y totales.
+Excepciones:
+Error al generar el comprobante o enviar el correo.
+No existen datos suficientes en el reporte.
+Salida:
+Comprobante digital (PDF o formato electrónico) enviado al cliente.
+Precondiciones:
+Debe existir un reporte asociado a la solicitud.
+El retiro debe haberse completado exitosamente.
+Postcondiciones:
+Se crea un objeto "Comprobante".
+Se asocia el comprobante a la solicitud y se envía al cliente.
+Se actualiza el estado final de la solicitud como cerrada.
+
