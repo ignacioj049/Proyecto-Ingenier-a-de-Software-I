@@ -1,8 +1,8 @@
 Contrato 1: AbrirSolicitud(clienteID, datosSolicitud)
 Responsabilidades:
-Registrar una nueva solicitud de recolección en el sistema con los datos del cliente y la información del retiro (tipo de material, cantidad, dirección, fecha disponible).
+Permitir al reciclador abrir/visualizar una solicitud específica para iniciar el proceso de recolección. El sistema muestra la información asociada a esa solicitud.
 Referencias:
-Caso de uso: *Ingresar solicitud de recolección*.
+Caso de uso: Ingresar solicitud de recolección*.
 Notas:
 La solicitud queda en estado “Pendiente” hasta ser validada y asignada por el coordinador.
 Excepciones:
@@ -20,51 +20,7 @@ El estado inicial de la solicitud se establece como pendiente
 
 
 
-Contrato 2: VisualizaSolicitud(clienteID)
-Responsabilidades:
-Mostrar al cliente la lista de solicitudes activas y su información detallada (estado, fecha programada, reciclador asignado, comprobante si existe).
-Referencias:
-Caso de uso: Ver solicitud.
-Notas:
-Permite al cliente revisar tanto solicitudes en curso como históricas.
-Excepciones:
-El cliente no tiene solicitudes registradas.
-Error de conexión al servidor o base de datos.
-Salida:
-Listado de solicitudes y sus estados actuales.
-Precondiciones:
-Cliente autenticado.
-Debe existir al menos una solicitud asociada al cliente.
-Postcondiciones:
-No se crean ni modifican objetos; solo se accede a la información.
-
-
-
-
-Contrato 3: GenerarRutaEficiente()
-Responsabilidades:
-Agrupar las solicitudes pendientes según ubicación geográfica y generar una ruta óptima para los recicladores.
-Referencias:
-Caso de uso: Generar una ruta eficiente.
-Notas:
-Utiliza el sistema de geolocalización y algoritmos de optimización de rutas.
-Excepciones:
-No hay solicitudes pendientes.
-Error al obtener coordenadas o al comunicarse con el servicio de mapas.
-Salida:
-Una ruta optimizada con el orden de recolección y asignación de recicladores.
-Precondiciones:
-Deben existir solicitudes pendientes sin ruta asignada.
-Conexión activa con el sistema de geolocalización.
-Postcondiciones:
-Se crean objetos "Ruta".
-Las solicitudes incluidas cambian su estado a asignada.
-Se vinculan las solicitudes y recicladores a la nueva ruta.
-
-
-
-
-Contrato 4: ReportaResultado(solicitudID, estado, observaciones)
+Contrato 2: ReportaResultado(solicitudID, estado, observaciones)
 Responsabilidades:
 Registrar el resultado de una recolección (exitosa, parcial o fallida) por parte del reciclador.
 Referencias:
@@ -85,8 +41,7 @@ El estado de la solicitud cambia a completada o fallida.
 Se inicia la operación "EmiteComprobante()" si corresponde (relación extend).
 
 
-
-Contrato 5: EmiteComprobante(solicitudID)
+Contrato 3: EmiteComprobante(solicitudID)
 Responsabilidades:
 Generar y enviar un comprobante digital al cliente con el detalle del retiro realizado.
 Referencias:
