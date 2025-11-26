@@ -1,6 +1,6 @@
 -Caso de Uso UC1: Reportar resultado de retiro
 Actor Principal: Reciclador
-Interés del actor principal: Registrar en el sistema el resultado, ya sea existoso o no del retiro.
+Interés del actor principal: Permite al reciclador registrar si el retiro de materiales fue exitoso y, en consecuencia, desencadenar la emisión del comprobante.
 
 Relación con los casos de uso:
 Se usa <<extend>> y el UC2: "Emitir comprobante" se ejecuta como extensión solo cuando el retiro se realiza exitosamente.
@@ -12,7 +12,7 @@ Precondiciones:
 -La solicitud ha sido validada geográficamente y pertenece a una ruta activa.
 
 Postcondiciones (garantías de éxito):
--La solicitud cambia su estado a “Retirada” o “No realizada”.
+-La solicitud cambia su estado a “Retirada”.
 -Si el retiro fue exitoso, se extiende UC2: Emitir comprobante.
 -El cliente y el coordinador reciben una notificación del resultado.
 -La información se registra en la base de datos con hora, ubicación y observaciones.
@@ -22,11 +22,12 @@ Escenario principal de éxito (Flujo básico):
 1) El reciclador abre la solicitud desde su lista de paradas de la ruta asignada.
 2) La aplicación muestra los datos del cliente, dirección, tipo de materiales y observaciones.
 3) El reciclador confirma la llegada.
-4) El reciclador reporta el resultado del retiro, ingresando los materiales efectivamente recolectados, observaciones y evidencias (como fotos).
-5) El sistema valida los campos y guarda el reporte.
-6) El flujo se extiende a UC2: Emitir comprobante para generar y entregar el comprobante al cliente.
-7) El sistema actualiza el estado de la solicitud a “Retirada” y sincroniza los datos con el servidor.
-8) Se notifica al cliente y al coordinador de ruta, y se actualiza la información de la ruta.
+4) El sistema valida la geolocalización del reciclador respecto al domicilio del cliente (verificando que esté en el rango permitido)
+5) El reciclador reporta el resultado del retiro, ingresando los materiales efectivamente recolectados y observaciones.
+6) El sistema valida los campos y guarda el reporte.
+7) El sistema ejecuta automáticamente el UC2: Emitir comprobante para generar y entregar el comprobante al cliente.
+8) El sistema actualiza el estado de la solicitud a “Retirada".
+9) Se notifica al cliente y al coordinador de ruta, y se actualiza la información de la ruta.
 
 Extensiones (Flujos alternativos):
 
@@ -47,7 +48,6 @@ b) Al recuperar señal, sincroniza los reportes y notificaciones pendientes.
 4' Cancelación por parte del cliente:
 a) Si antes del paso 3 la solicitud fue cancelada, no se permite el reporte.
 b) El reciclador vuelve a la lista de paradas de la ruta.
-
 
 
 
@@ -95,7 +95,6 @@ a) Si la cooperativa lo requiere, el sistema habilita impresión o entrega de un
 
 
 
-
 -Caso de Uso UC3: Ingresar Solicitud
 Actor Principal: Cliente
 Actores involucrados e intereses:
@@ -103,7 +102,6 @@ Sistema de Geolocalización: Valida la ubicación del cliente para asegurar que 
 
 Relaciones con otros casos de uso:
 <<include>> UC: Validar ubicación geográfica, el cual se ejecuta automáticamente cuando el cliente ingresa su dirección o ubicación para confirmar que pertenece a una zona cubierta por el servicio.
-<<extend>> UC: Ver solicitud, donde “Ver solicitud” puede ejecutarse posteriormente como extensión de este caso, permitiendo al cliente revisar el estado o historial de solicitudes ingresadas.
 
 Precondiciones:
 -El cliente está registrado y autenticado en la aplicación.
@@ -116,10 +114,10 @@ Postcondiciones (garantías de éxito):
 -El sistema notifica al coordinador para su agrupación en una futura ruta.
 
 Escenario principal de éxito (Flujo básico):
-1) El cliente accede a la aplicación y selecciona la opción “Ingresar solicitud”.
+1) El cliente accede a la aplicación y selecciona la opción “Nueva solicitud”.
 2) Ingresa los datos requeridos: tipo de material, cantidad estimada, dirección y observaciones opcionales.
 3) El sistema ejecuta <<include>> UC: Validar ubicación geográfica, verificando que la dirección esté dentro de una zona atendida.
-4) Si la ubicación es válida, el sistema guarda la solicitud y la asocia al perfil del cliente.
+4) El sistema confirma que la zona es válida, guarda la solicitud y la asocia al perfil del cliente.
 5) La aplicación muestra un mensaje de confirmación y el número de solicitud generado.
 6) El coordinador recibe la nueva solicitud para su posterior agrupación y planificación de ruta.
 7) El cliente puede posteriormente ver su solicitud para consultar el estado del retiro.

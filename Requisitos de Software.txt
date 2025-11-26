@@ -1,16 +1,17 @@
 Requisitos de Software:
 1. Funcionales:
-La app debe permitir que cada usuario, ingrese sus solicitud de recolección de sus materiales reciclables
-La app permite registrar la ubicación geográfica de las solicitudes
-La app permite generar un reporte del estado de la solicitud, el cual puede ser modificado por los recicladores
-La app permite emitir comprobantes de los retiros para los hogares
-La app permite visualizar las solicitudes a los coordinadores de ruta
+-El sistema debe permitir al cliente ingresar una solicitud de recolección especificando el tipo de material y cantidad.
+-El sistema debe permitir al cliente registrar la ubicación geográfica de la solicitud
+-El sistema debe validar automáticamente que la ubicación ingresada por el Cliente se encuentre dentro del área de recolección permitida.
+-El sistema debe permitir al reciclador generar un reporte del estado de la solicitud (Por ejemplo: retirada o no realizada), incluyendo observaciones.
+-El sistema debe permitir al reciclador emitir un comprobante de retiro para el cliente tras una recolección exitosa.
+-El sistema debe permitir al coordinador de ruta visualizar las solicitudes pendientes en un mapa.
+-El sistema debe permitir al coordinador de ruta agrupar solicitudes para generar rutas de recolección.
+-El sistema debe permitir a los usuarios (los clientes, recicladores y coordinadores) gestionar sus credenciales de acceso (Inicio o cierre de sesión).
 
 2. No funcionales:
--La app valida que la solicitud esté dentro del área de recolección permitido
--El usuario debe seleccionar el/los tipo(s) de material(es) a desechar
--La app posee una interfaz y accesibilidad diferente para cada actor correspondiente
--La app puede usarse tanto en dispositivos móviles como computadoras
--La app posee una función de verificación, tanto de los usuarios (sus propias cuentas), como también de sus datos respectivos. 
--La app tiene sus horarios fijos para que los usuarios realicen sus solicitudes
--La app poseerá funciones de mayor accesibilidad para gente que posea algún tipo de discapacidad
+-Usabilidad: La aplicación debe poseer una interfaz adaptada al perfil del usuario (vistas simplificadas para los recicladores en terreno y vistas de gestión para los coordinadores).
+-Portabilidad: La aplicación debe ser accesible tanto desde dispositivos móviles (Android/iOS) como navegadores web de escritorio.
+-Accesibilidad: La aplicación debe cumplir con pautas de accesibilidad web para usuarios con discapacidades visuales o motoras.
+-Disponibilidad: El sistema debe estar disponible para el ingreso de solicitudes en los horarios definidos por la cooperativa (24/7 o horario hábil según la regla que posea el negocio).
+-Seguridad: Las contraseñas de los usuarios deben almacenarse de forma encriptada y el sistema debe validar la identidad antes de permitir el acceso a datos sensibles.
