@@ -2,7 +2,7 @@ Contrato 1: AbrirSolicitud(clienteID, datosSolicitud)
 Responsabilidades:
 Permitir al reciclador abrir/visualizar una solicitud específica para iniciar el proceso de recolección. El sistema muestra la información asociada a esa solicitud.
 Referencias:
-Caso de uso: Ingresar solicitud de recolección*.
+Caso de uso: Reportar resultado de retiro.
 Notas:
 La solicitud queda en estado “Pendiente” hasta ser validada y asignada por el coordinador.
 Excepciones:
@@ -20,7 +20,7 @@ El estado inicial de la solicitud se establece como pendiente
 
 
 
-Contrato 2: ReportaResultado(solicitudID, estado, observaciones)
+Contrato 2: ReportaResultado(solicitudID, observaciones)
 Responsabilidades:
 Registrar el resultado de una recolección (exitosa, parcial o fallida) por parte del reciclador.
 Referencias:
@@ -41,7 +41,7 @@ El estado de la solicitud cambia a completada o fallida.
 Se inicia la operación "EmiteComprobante()" si corresponde (relación extend).
 
 
-Contrato 3: EmiteComprobante(solicitudID)
+Contrato 3: EmiteComprobante(idReporte)
 Responsabilidades:
 Generar y enviar un comprobante digital al cliente con el detalle del retiro realizado.
 Referencias:
