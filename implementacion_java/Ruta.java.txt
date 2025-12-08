@@ -1,0 +1,21 @@
+import java.util.List;
+
+public class Ruta {
+    private static int cont = 1;
+    private int idRuta;
+    private String fechaRuta;
+
+    private List<SolicitudRetiro> solicitudes;
+    private Zona zona;
+    private ServicioGeolocalizacion geolocalizacion = new ServicioGeolocalizacion();
+
+    public Ruta(List<SolicitudRetiro> solicitudes) {
+        this.idRuta = cont++;
+        this.fechaRuta = "2025-01-01";
+        this.solicitudes = solicitudes;
+    }
+
+    public void asignarZona(Zona zona) {
+        this.zona = zona;
+    }
+}

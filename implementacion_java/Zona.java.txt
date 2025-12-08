@@ -1,0 +1,7 @@
+public class Zona {
+    private int idZona;
+
+    public Zona(int id) {
+        this.idZona = id;
+    }
+}

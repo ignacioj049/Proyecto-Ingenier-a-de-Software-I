@@ -1,0 +1,10 @@
+public class ServicioComprobante {
+
+    public static Comprobante generarComprobante() {
+        return new Comprobante();
+    }
+
+    public static void enviarComprobante(Comprobante c, Cliente cliente) {
+        System.out.println("Enviando comprobante al cliente: " + cliente.nombreUsuario);
+    }
+}

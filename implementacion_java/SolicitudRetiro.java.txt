@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class SolicitudRetiro {
+    private static int contador = 1;
+    private int idSolicitud;
+    private String fechaRetiro;
+    private String estadoRetiro = "PENDIENTE";
+    private String direccionRetiro;
+
+    private List<Material> materiales = new ArrayList<>();
+    private Reporte reporte;
+    private Ruta rutaAsignada;
+
+    public SolicitudRetiro(String direccion) {
+        this.idSolicitud = contador++;
+        this.direccionRetiro = direccion;
+        this.fechaRetiro = "2025-01-01"; // placeholder
+    }
+
+    public void asignarRuta(Ruta ruta) {
+        this.rutaAsignada = ruta;
+    }
+
+    public void agregarMaterial(Material m) {
+        materiales.add(m);
+    }
+
+    public void setReporte(Reporte r) {
+        this.reporte = r;
+    }
+}

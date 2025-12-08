@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Material {
+    private int idMaterial;
+    private String tipoMaterial;
+
+    private List<CantidadBasura> cantidades = new ArrayList<>();
+
+    public Material(int id, String tipo) {
+        this.idMaterial = id;
+        this.tipoMaterial = tipo;
+    }
+
+    public void agregarCantidad(CantidadBasura c) {
+        cantidades.add(c);
+    }
+}

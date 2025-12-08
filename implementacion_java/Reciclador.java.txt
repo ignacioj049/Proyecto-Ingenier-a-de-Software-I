@@ -1,0 +1,22 @@
+public class Reciclador extends Usuario {
+    private String rutReciclador;
+    private String licencia;
+
+    public Reciclador(int id, String nombre, String email, String telefono,
+                      String rut, String licencia) {
+        super(id, nombre, email, telefono);
+        this.rutReciclador = rut;
+        this.licencia = licencia;
+    }
+
+    public Reporte generarReporte(SolicitudRetiro solicitud, String observaciones) {
+        Reporte reporte = new Reporte(observaciones);
+        solicitud.setReporte(reporte);
+
+        // Produce comprobante
+        Comprobante comprobante = ServicioComprobante.generarComprobante();
+        reporte.setComprobante(comprobante);
+
+        return reporte;
+    }
+}

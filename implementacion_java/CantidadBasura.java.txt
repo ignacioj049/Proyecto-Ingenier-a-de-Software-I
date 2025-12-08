@@ -1,0 +1,9 @@
+public class CantidadBasura {
+    private int cantidadMaterial;
+    private double pesoMaterial;
+
+    public CantidadBasura(int cantidad, double peso) {
+        this.cantidadMaterial = cantidad;
+        this.pesoMaterial = peso;
+    }
+}
