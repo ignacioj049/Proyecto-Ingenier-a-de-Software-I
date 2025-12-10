@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 OPR/123.0.0.0" version="29.1.1">
+  <diagram name="Página-1" id="RiiEOw5ytok9ZQZeVNI-">
+    <mxGraphModel grid="0" page="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-6" edge="1" parent="1" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-127" y="150" as="sourcePoint" />
+            <mxPoint x="49" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value=":&lt;u&gt;Reciclador&lt;/u&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="-247" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1: VisualizaSolicitud()" vertex="1">
+          <mxGeometry height="46" width="170" x="-118" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-4" edge="1" parent="1" source="uMSfx2zmJcGRG2JNYq5p-3" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=12;startSize=8;endSize=8;" target="uMSfx2zmJcGRG2JNYq5p-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-12" edge="1" parent="1" source="uMSfx2zmJcGRG2JNYq5p-5" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;endArrow=none;endFill=0;" target="uMSfx2zmJcGRG2JNYq5p-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value=":&lt;u&gt;Sistema&lt;/u&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="49" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-61" y="138" as="sourcePoint" />
+            <mxPoint x="-11" y="138" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-15" edge="1" parent="1" source="uMSfx2zmJcGRG2JNYq5p-8" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="487" y="353" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value=":&lt;u&gt;SolicitudRetiro&lt;/u&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="49" y="322" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.1: ruta:= buscarRutaActiva(idReciclador)" vertex="1">
+          <mxGeometry height="46" width="229" x="182" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value=":&lt;u&gt;Ruta&lt;/u&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="423" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-13" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="265" y="138" as="sourcePoint" />
+            <mxPoint x="315" y="138" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-14" edge="1" parent="1" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="487" y="180" as="sourcePoint" />
+            <mxPoint x="486" y="353" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.2*: getDireccion()" vertex="1">
+          <mxGeometry height="46" width="243" x="217" y="302" as="geometry" />
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-17" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="370.5" y="342" as="sourcePoint" />
+            <mxPoint x="308.5" y="342" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-18" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint y="167" as="sourcePoint" />
+            <mxPoint x="-62" y="167" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uMSfx2zmJcGRG2JNYq5p-19" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1.3: mostrarDatosRuta()" vertex="1">
+          <mxGeometry height="46" width="170" x="-113" y="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
